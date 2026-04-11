@@ -21,9 +21,9 @@ Sistem ini dirancang menggunakan arsitektur *High-Availability* dan *Multi-Tier*
 ## Tim Pengembang (Kelompok X)
 | Peran | Nama Anggota | Tanggung Jawab Utama |
 | :--- | :--- | :--- |
-| **DevOps & Security Engineer** | [Tulis Namamu] | Setup Git, Branch Protection, Terraform, IAM Policies, & Security Groups. |
-| **Cloud Architect** | [Tulis Nama Teman 1] | Desain Diagram Draw.io, Perencanaan VPC/Subnet, & Estimasi Biaya AWS. |
-| **Backend/App Dev** | [Tulis Nama Teman 2] | Integrasi Aplikasi, Skema Database MySQL, & Koneksi API ke S3. |
+| **DevOps & Security Engineer** | [Erina Ekanova Safitri] | Setup Git, Branch Protection, Terraform, IAM Policies, & Security Groups. |
+| **Cloud Architect** | [Tyara Rahmidasari] | Desain Diagram Draw.io, Perencanaan VPC/Subnet, & Estimasi Biaya AWS. |
+| **Backend/App Dev** | [Nur Haniatin Jannah] | Integrasi Aplikasi, Skema Database MySQL, & Koneksi API ke S3. |
 
 ## Alur Kerja (Git Flow)
 Kami menggunakan metode *branching* dengan *Branch Protection* aktif di `main`.
