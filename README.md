@@ -11,7 +11,6 @@ Sistem ini dirancang menggunakan arsitektur *High-Availability* dan *Multi-Tier*
 * **Authentication & DNS:** Amazon Cognito & Route 53
 
 ![Diagram Arsitektur AWS](docs/architecture.png) 
-*(Catatan: Nanti *upload* gambar diagram draw.io kalian ke folder docs, lalu pastikan namanya architecture.png agar muncul di sini)*
 
 ## Struktur Direktori
 * `/terraform`: Berisi skrip IaC (Terraform) untuk *provisioning* infrastruktur AWS.
