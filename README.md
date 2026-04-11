@@ -18,7 +18,7 @@ Sistem ini dirancang menggunakan arsitektur *High-Availability* dan *Multi-Tier*
 * `/app`: Berisi *source code* logika aplikasi *e-learning* (Backend/Frontend).
 * `/docs`: Berisi dokumen perencanaan proyek (PDF), diagram arsitektur, dan slide presentasi.
 
-## Tim Pengembang (Kelompok X)
+## Tim Pengembang (Kelompok 5)
 | Peran | Nama Anggota | Tanggung Jawab Utama |
 | :--- | :--- | :--- |
 | **DevOps & Security Engineer** | Erina Ekanova Safitri | Setup Git, Branch Protection, Terraform, IAM Policies, & Security Groups. |
