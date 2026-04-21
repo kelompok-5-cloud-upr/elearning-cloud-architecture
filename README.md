@@ -1,31 +1,28 @@
-# elearning-cloud-architecture
 # E-Learning Cloud Platform - Universitas Palangka Raya
 
-Repositori ini berisi perencanaan arsitektur, *Infrastructure as Code* (IaC), dan *source code* untuk platform E-Learning berbasis *Cloud* (AWS). Proyek ini merupakan Final Project untuk mata kuliah Cloud Computing.
+Repositori ini berisi perencanaan arsitektur, *Infrastructure as Code* (IaC), dan dokumentasi untuk pengembangan platform e-learning. Proyek ini merupakan Final Project Cloud Computing yang diimplementasikan menggunakan **Microsoft Azure**.
 
-## Topologi & Arsitektur Sistem
-Sistem ini dirancang menggunakan arsitektur *High-Availability* dan *Multi-Tier* di dalam AWS VPC:
-* **Frontend/Backend Compute:** Amazon EC2 (Auto Scaling) & Application Load Balancer
-* **Database Tier:** Amazon RDS (MySQL)
-* **Storage & CDN:** Amazon S3 & CloudFront
-* **Authentication & DNS:** Amazon Cognito & Route 53
+## 🏗 Arsitektur Sistem (High-Availability)
+Sistem ini dirancang untuk memiliki keandalan tinggi dan toleransi kesalahan (*fault tolerance*) guna mengatasi lonjakan trafik saat ujian mahasiswa.
 
-![Diagram Arsitektur AWS](docs/architecture.png) 
+![Arsitektur Cloud E-Learning](docs/architecture.png)
 
-## Struktur Direktori
-* `/terraform`: Berisi skrip IaC (Terraform) untuk *provisioning* infrastruktur AWS.
-* `/app`: Berisi *source code* logika aplikasi *e-learning* (Backend/Frontend).
-* `/docs`: Berisi dokumen perencanaan proyek (PDF), diagram arsitektur, dan slide presentasi.
+Topologi dibangun di dalam **Azure Virtual Network (VNet)** dengan komponen utama:
+* **Frontend/Backend Compute:** 2 Unit Azure Virtual Machines & Azure Application Gateway
+* **Database Tier:** Azure Database for MySQL (Flexible Server)
+* **Storage & CDN:** Azure Blob Storage (Geo-Redundant) & Azure CDN
+* **Authentication & DNS:** Azure Active Directory B2C (Azure AD B2C) & Azure DNS
 
-## Tim Pengembang (Kelompok 5)
-| Peran | Nama Anggota | Tanggung Jawab Utama |
+## 📂 Struktur Direktori
+* `/app` - *Source code* aplikasi *e-learning* (Node.js/PHP).
+* `/docs` - Dokumentasi arsitektur visual (`architecture.png`) dan laporan dokumen perencanaan teknis (`planning.md`).
+* `/terraform` - Skrip Terraform (`main.tf`, `variables.tf`) dengan menggunakan *provider azurerm*.
+
+## 👥 Tim Pengembang (Kelompok 2)
+| Nama | NIM | Peran (Role) |
 | :--- | :--- | :--- |
-| **DevOps & Security Engineer** | Erina Ekanova Safitri | Setup Git, Branch Protection, Terraform, IAM Policies, & Security Groups. |
-| **Cloud Architect** | Tyara Rahmidasari | Desain Diagram Draw.io, Perencanaan VPC/Subnet, & Estimasi Biaya AWS. |
-| **Backend/App Dev** | Nur Haniatin Jannah | Integrasi Aplikasi, Skema Database MySQL, & Koneksi API ke S3. |
+| **Erina Ekanova Safitri** | 2330105030017 | DevOps & Security |
+| **Tyara Rahmidasari** | 2330105030021 | Cloud Architect |
+| **Nur Haniatin Jannah** | 2330105030023 | Backend/App Dev |
 
-## Alur Kerja (Git Flow)
-Kami menggunakan metode *branching* dengan *Branch Protection* aktif di `main`.
-1. `main` (Production): Kode yang sudah stabil dan berjalan di AWS.
-2. `develop` (Development): Tempat menggabungkan fitur baru.
-3. `feature/*`: Cabang untuk setiap anggota mengerjakan tugas masing-masing sebelum melakukan *Pull Request* ke `develop`.
+**Dosen Pengampu:** Septian Geges, S.Kom., M.Kom.
