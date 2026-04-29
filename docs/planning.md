@@ -1,7 +1,7 @@
 # PERENCANAAN FINAL PROJECT CLOUD COMPUTING
 ## IMPLEMENTASI ARSITEKTUR CLOUD HIGH-AVAILABILITY UNTUK PLATFORM E-LEARNING
 
-**Disusun Oleh Kelompok 2:**
+**Disusun Oleh Kelompok 5:**
 * **Erina Ekanova Safitri** (2330105030017)
 * **Tyara Rahmidasari** (2330105030021)
 * **Nur Haniatin Jannah** (2330105030023)
@@ -14,54 +14,51 @@
 ## BAB I PENDAHULUAN
 
 ### 1.1 Latar Belakang dan Tujuan Proyek
-Seiring dengan meningkatnya kebutuhan akan sistem manajemen pembelajaran digital, sebuah platform *e-learning* dituntut untuk memiliki keandalan tinggi (*high availability*) dan kemampuan skala dinamis (*scalability*). Seringkali, *server* akademik mengalami *downtime* pada saat periode krusial seperti ujian semester atau pengumpulan tugas akhir akibat lonjakan *traffic* yang tidak terprediksi.
-
-Oleh karena itu, proyek ini bertujuan untuk merancang dan mengimplementasikan arsitektur *cloud* berbasis **Microsoft Azure** untuk platform *e-learning*. Dengan memanfaatkan fitur **Virtual Machine Scale Sets** dan distribusi beban kerja melalui **Azure Application Gateway**, sistem ini dirancang untuk dapat menangani fluktuasi akses pengguna secara efisien dan tetap stabil tanpa mengorbankan efisiensi biaya. Selain itu, aspek keamanan data menjadi prioritas utama dengan penerapan redundansi penyimpanan guna menjamin ketersediaan materi instruksional setiap saat.
+Seiring meningkatnya kebutuhan sistem manajemen pembelajaran digital, platform *e-learning* dituntut memiliki keandalan tinggi (*high availability*) dan kemampuan skala dinamis (*scalability*). *Server* akademik sering mengalami *downtime* pada periode krusial akibat lonjakan *traffic* yang tidak terprediksi. Proyek ini bertujuan merancang dan mengimplementasikan arsitektur *cloud* berbasis **Amazon Web Services (AWS)** untuk platform *e-learning*. Dengan memanfaatkan 2 buah *instance* komputasi dan distribusi beban kerja melalui *Application Load Balancer*, sistem dirancang untuk menangani fluktuasi akses mahasiswa secara efisien.
 
 ### 1.2 Spesifikasi dan Fungsionalitas Layanan Cloud
-Proyek ini mengintegrasikan layanan-layanan utama dari Microsoft Azure untuk membangun infrastruktur yang kokoh:
+Proyek ini mengintegrasikan 7 layanan utama dari ekosistem AWS:
 
-| Kategori | Layanan Azure | Fungsi Spesifik |
+| Kategori | Layanan AWS | Fungsi Spesifik dalam Sistem E-Learning |
 | :--- | :--- | :--- |
-| **Networking** | Azure DNS & CDN | Mengelola domain sistem dan mempercepat distribusi materi kuliah (video/gambar) ke mahasiswa. |
-| **Traffic Management**| Azure App Gateway | Sebagai *Load Balancer* Layer 7 untuk mendistribusikan trafik secara merata ke dua unit server (VM). |
-| **Compute** | **Azure Virtual Machines**| **2 Unit Instance** (B1s) yang menjalankan logika aplikasi secara paralel demi menjaga stabilitas sistem (*High Availability*). |
-| **Database** | Azure DB for MySQL | Menyimpan data profil mahasiswa, dosen, dan rekam jejak nilai dalam basis data terkelola. |
-| **Storage** | **Azure Blob Storage** | Menyimpan file materi kuliah dengan konfigurasi **Geo-Redundant (GRS)** untuk keamanan data maksimal terhadap bencana. |
-| **Security** | Azure AD B2C | Mengelola sistem login dan registrasi mahasiswa secara terpusat dan aman. |
+| **Networking** | Amazon Route 53 & CloudFront | Mengelola DNS sistem dan bertindak sebagai CDN untuk mempercepat waktu muat halaman portal. |
+| **Traffic Management** | Application Load Balancer (ALB) | Mendistribusikan *traffic* HTTP/HTTPS secara merata ke dua *instance server* EC2. |
+| **Compute** | **Amazon EC2** | **2 Unit Instance** (t2.micro) yang memproses logika *backend* secara paralel untuk mencegah *overload*. |
+| **Database** | Amazon RDS (MySQL) | Manajemen basis data terkelola untuk menyimpan profil, mata kuliah, dan nilai. |
+| **Storage** | **Amazon S3** | Menyimpan materi kuliah dengan konfigurasi **Cross-Region Replication** sebagai redundansi pencegah kehilangan data. |
+| **Security** | Amazon Cognito | Infrastruktur manajemen identitas untuk registrasi dan autentikasi pengguna. |
 
 ---
 
 ## 1.3 Rencana Anggaran Biaya (RAB)
-Estimasi biaya dirancang dengan mengoptimalkan program **Azure for Students**. Berikut adalah rincian biaya operasional bulanan:
+Proyek ini dirancang dengan menyeimbangkan pemanfaatan **AWS Free Tier** dan kebutuhan *High Availability*. Berikut estimasi operasional bulanan:
 
-| Komponen Layanan | Detail Penggunaan | Estimasi Biaya/Bulan (IDR) |
+| Komponen Layanan | Spesifikasi Penggunaan | Estimasi Biaya/Bulan (IDR) |
 | :--- | :--- | :--- |
-| **Azure Virtual Machines** | 2 Unit B1s (Unit ke-2 memotong kredit gratis) | ± Rp 125.000 |
-| **Azure App Gateway** | Standar V2 (Traffic Management redundant) | ± Rp 280.000 |
-| **Azure Database for MySQL** | Flexible Server B1ms (Free Tier Eligible) | Rp 0 |
-| **Azure Blob Storage** | 5 GB dengan fitur **GRS (Redundant)** | ± Rp 15.000 |
-| **Azure DNS & AD B2C** | 1 Hosted Zone & Maksimal 50.000 MAU | ± Rp 8.500 |
-| **TOTAL ESTIMASI** | **Memotong Saldo Kredit Azure Mahasiswa $100** | **± Rp 428.500** |
+| **Amazon EC2** | **2 Unit** t2.micro (Linux). 1 Unit masuk *Free Tier* (750 Jam), 1 Unit dikenakan tarif standar. | ± Rp 135.000 |
+| **Application Load Balancer** | 1 ALB (Penggunaan 730 jam/bulan) | ± Rp 250.000 |
+| **Amazon RDS** | db.t2.micro (MySQL) - *Free Tier* | Rp 0 |
+| **Amazon S3** | 5 GB Standard dengan **Replikasi Redundansi** | ± Rp 15.000 |
+| **Amazon Cognito** | Maksimal 50.000 MAU - *Free Tier* | Rp 0 |
+| **Amazon Route 53** | 1 Hosted Zone untuk *domain* | ± Rp 8.000 |
+| **TOTAL ESTIMASI** | | **± Rp 408.000** |
 
 ---
 
-## 1.4 Perencanaan Manajemen Akses dan Keamanan (RBAC)
-Pada lingkungan Microsoft Azure, sistem keamanan dirancang menerapkan prinsip *Least Privilege* menggunakan *Role-Based Access Control*:
+## 1.4 Perencanaan Manajemen Akses dan Keamanan (IAM)
+Konfigurasi hak akses didefinisikan ketat sesuai prinsip *Least Privilege*:
 
-| Entitas (Identitas) | Role / Peran Akses Azure | Justifikasi Operasional |
+| Entitas | Role / Policy Akses | Justifikasi Operasional |
 | :--- | :--- | :--- |
-| **VM Managed Identity** | **Storage Blob Data Reader** | Mengizinkan kedua *Virtual Machine* untuk membaca materi pelajaran (video/dokumen) secara langsung dan aman dari *Container* Blob Storage. |
-| **VM Managed Identity** | **Monitoring Metrics Publisher** | Memberikan otorisasi kepada *Virtual Machine* untuk secara otomatis mengirimkan log performa dan status kesehatan *server* ke layanan Azure Monitor. |
-| **Tim DevOps** | **Contributor** | Memberikan hak akses penuh bagi *engineer* untuk membangun, mengelola, dan mengaudit seluruh sumber daya infrastruktur (VM, Database, Storage) tanpa memiliki hak untuk mengubah kepemilikan tagihan/langganan. |
+| **EC2 Profile** | `AmazonS3ReadOnlyAccess` | Mengizinkan *server* EC2 membaca materi pelajaran langsung dari *bucket* S3. |
+| **EC2 Profile** | `CloudWatchAgentServerPolicy` | Mengizinkan EC2 mengirimkan log dan metrik performa ke CloudWatch. |
+| **Tim DevOps** | `AdministratorAccess` | Hak akses penuh untuk merancang dan audit seluruh sumber daya infrastruktur. |
 
 ---
 
 ## 1.5 Struktur Tim dan Pembagian Tugas
-Seluruh koordinasi *source code* dan dokumentasi infrastruktur dikelola terpusat melalui *repository* GitHub dengan mengaktifkan fitur *Branch Protection*.
-
 | Nama Anggota | Peran (Role) | Tanggung Jawab Utama |
 | :--- | :--- | :--- |
-| **Erina Ekanova Safitri** <br> *(2330105030017)* | **DevOps & Security** | Melakukan inisialisasi manajemen versi menggunakan Git, menyusun skrip infrastruktur IaC untuk Azure (menggunakan *provider azurerm* Terraform), dan mengonfigurasi kebijakan keamanan RBAC. |
-| **Tyara Rahmidasari** <br> *(2330105030021)* | **Cloud Architect** | Merancang desain topologi *High-Availability* di dalam Azure Virtual Network, merumuskan estimasi Rencana Anggaran Biaya (RAB), dan memastikan integrasi layanan berjalan lancar. |
-| **Nur Haniatin Jannah** <br> *(2330105030023)* | **Backend/App Dev** | Mengembangkan logika utama *source code* aplikasi *e-learning*, mendesain skema tabel untuk Azure Database for MySQL, dan menyusun dokumentasi integrasi API. |
+| **Erina Ekanova Safitri** | DevOps & Security | Inisialisasi Git, skrip Terraform (AWS *provider*), Security Group, dan IAM. |
+| **Tyara Rahmidasari** | Cloud Architect | Desain topologi AWS *High Availability*, RAB, dan integrasi layanan. |
+| **Nur Haniatin Jannah** | Backend/App Dev | Logika aplikasi, skema *database*, dan dokumentasi API. |
